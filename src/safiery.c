@@ -24,12 +24,12 @@
 #define FLUID_TYPE_FRESH_WATER		1
 #define FLUID_TYPE_WASTE_WATER		2
 #define FLUID_TYPE_LIVE_WELL		3
-#define FLUID_TYPE_OIL			4
+#define FLUID_TYPE_OIL				4
 #define FLUID_TYPE_BLACK_WATER		5
-#define FLUID_TYPE_GASOLINE		6
-#define FLUID_TYPE_DIESEL		7
-#define FLUID_TYPE_LPG			8
-#define FLUID_TYPE_LNG			9
+#define FLUID_TYPE_GASOLINE			6
+#define FLUID_TYPE_DIESEL			7
+#define FLUID_TYPE_LPG				8
+#define FLUID_TYPE_LNG				9
 #define FLUID_TYPE_HYDRAULIC_OIL	10
 #define FLUID_TYPE_RAW_WATER		11
 
@@ -370,14 +370,6 @@ static const struct reg_info safiery_adv[] = {
 		.format	= &veUnitcm,
 	},
 	{
-		.type	= VE_UN16,
-		.offset	= 3,
-		.shift	= 14,
-		.mask	= 3,
-		.name	= "Quality",
-		.format	= &veUnitNone,
-	},
-	{
 		.type	= VE_SN8,
 		.offset	= 8,
 		.scale	= 1024,
@@ -389,6 +381,13 @@ static const struct reg_info safiery_adv[] = {
 		.offset	= 9,
 		.scale	= 1024,
 		.name	= "AccelY",
+		.format	= &veUnitG2Dec,
+	},
+	{
+		.type	= VE_SN8,
+		.offset	= 10,
+		.shift	= 1024,
+		.name	= "AccelZ",
 		.format	= &veUnitG2Dec,
 	},
 };
