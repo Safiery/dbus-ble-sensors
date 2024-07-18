@@ -268,53 +268,53 @@ static int safiery_xlate_level(struct VeItem *root, VeVariant *val, uint64_t rv)
 	temp = veItemValueInt(root, "Temperature");
 	temp += 40;
 
-	/*
-	  Check for presence of extension bit on certain hardware/firmware.
-	  It will always be 0 on old firmware/hardware where raw value
-	  saturates at 16383.  When extension bit is set, the raw_value
-	  resolution changes to 4us with 16384 us offet.  Thus old sensors
-	  and firmware still have 0 to 16383 us range with 1us, and new
-	  versions add the range 16384 us to 81916 us with 4 us
-	  resolution.
-	*/
-	tank_level_ext = veItemValueInt(root, "TankLevelExtension");
-	if (tank_level_ext)
-		rv = 16384 + 4 * rv;
+	// /*
+	//   Check for presence of extension bit on certain hardware/firmware.
+	//   It will always be 0 on old firmware/hardware where raw value
+	//   saturates at 16383.  When extension bit is set, the raw_value
+	//   resolution changes to 4us with 16384 us offet.  Thus old sensors
+	//   and firmware still have 0 to 16383 us range with 1us, and new
+	//   versions add the range 16384 us to 81916 us with 4 us
+	//   resolution.
+	// */
+	// tank_level_ext = veItemValueInt(root, "TankLevelExtension");
+	// if (tank_level_ext)
+	// 	rv = 16384 + 4 * rv;
 
-	model = safiery_get_model(hwid);
-	if (!model)
-		return -1;
+	// model = safiery_get_model(hwid);
+	// if (!model)
+	// 	return -1;
 
-	coefs = model->coefs;
+	// coefs = model->coefs;
 
-	if (!coefs) {
-		int fluid_type = veItemValueInt(root, "FluidType");
+	// if (!coefs) {
+	// 	int fluid_type = veItemValueInt(root, "FluidType");
 
-		switch (fluid_type) {
-		case FLUID_TYPE_FRESH_WATER:
-		case FLUID_TYPE_WASTE_WATER:
-		case FLUID_TYPE_LIVE_WELL:
-		case FLUID_TYPE_BLACK_WATER:
-		case FLUID_TYPE_RAW_WATER:
-			coefs = safiery_coefs_h2o;
-			break;
-		case FLUID_TYPE_LPG:
-			coefs = safiery_coefs_lpg;
-			break;
-		case FLUID_TYPE_GASOLINE:
-		case FLUID_TYPE_DIESEL:
-			coefs = safiery_coefs_gasoline;
-			break;
-		default:
-			return -1;
-		}
-	}
+	// 	switch (fluid_type) {
+	// 	case FLUID_TYPE_FRESH_WATER:
+	// 	case FLUID_TYPE_WASTE_WATER:
+	// 	case FLUID_TYPE_LIVE_WELL:
+	// 	case FLUID_TYPE_BLACK_WATER:
+	// 	case FLUID_TYPE_RAW_WATER:
+	// 		coefs = safiery_coefs_h2o;
+	// 		break;
+	// 	case FLUID_TYPE_LPG:
+	// 		coefs = safiery_coefs_lpg;
+	// 		break;
+	// 	case FLUID_TYPE_GASOLINE:
+	// 	case FLUID_TYPE_DIESEL:
+	// 		coefs = safiery_coefs_gasoline;
+	// 		break;
+	// 	default:
+	// 		return -1;
+	// 	}
+	// }
 
-	if (coefs == safiery_coefs_lpg)
-		scale = safiery_scale_butane(root, temp);
+	// if (coefs == safiery_coefs_lpg)
+	// 	scale = safiery_scale_butane(root, temp);
 
-	scale += coefs[0] + coefs[1] * temp + coefs[2] * temp * temp;
-	level = rv * scale;
+	//scale += coefs[0] + coefs[1] * temp + coefs[2] * temp * temp;
+	level = rv;
 	veVariantFloat(val, level / 10);
 
 	return 0;
