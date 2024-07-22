@@ -251,7 +251,7 @@ int safiery_handle_mfg(const bdaddr_t *addr, const uint8_t *buf, int len)
 		return -1;
 
 	snprintf(name, sizeof(name), "StarTank %02X:%02X:%02X",
-		, uid[0], uid[1], uid[2]);
+		uid[0], uid[1], uid[2]);
 	ble_dbus_set_name(root, name);
 
 	if (!ble_dbus_is_enabled(root))
