@@ -93,7 +93,7 @@ static int safiery_init(struct VeItem *root, void *data)
 }
 
 static const struct dev_info safiery_sensor = {
-	.product_id	= VE_PROD_ID_TANK_SENSOR,
+	.product_id	= VE_PROD_ID_SAFIERY_TANK_SENSOR,
 	.dev_instance	= 20,
 	.dev_prefix	= "safiery_",
 	.role		= "tank",
